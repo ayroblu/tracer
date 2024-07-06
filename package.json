@@ -1,0 +1,12 @@
+{
+  "name": "tracer",
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prettier": "^3.3.2",
+    "typescript": "^5.0.0"
+  }
+}
