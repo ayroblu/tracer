@@ -30,7 +30,11 @@ body {
   min-width: 320px;
   min-height: 100vh;
   min-height: 100dvh;
-  justify-content: center;
+}
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 h1 {

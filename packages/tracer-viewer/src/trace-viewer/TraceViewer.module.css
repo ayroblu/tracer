@@ -1,0 +1,6 @@
+.span {
+  height: 30px;
+  border-radius: 10px;
+  white-space: nowrap;
+  border: 1px solid #888888;
+}
