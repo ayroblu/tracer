@@ -6,10 +6,7 @@ To install dependencies:
 bun install
 ```
 
-To run:
+This is a JS tracing library on the browser to easily trace and view what's happening
 
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.0.36. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+- packages/tracer-lib for the library
+- packages/tracer-viewer for the viewer. View at https://ayroblu.github.io/tracer

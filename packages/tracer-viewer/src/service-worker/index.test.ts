@@ -121,7 +121,7 @@ async function getMockResponse(request: Request | URL | string) {
 }
 async function mockExtendableEvent() {
   vi.spyOn(ExtendableEvent.prototype, "waitUntil").mockImplementation(function (
-    this: ExtendableEvent,
+    this: void,
     promise,
   ) {
     // @ts-expect-error service-worker-mock internal
