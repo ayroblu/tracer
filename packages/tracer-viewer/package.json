@@ -13,9 +13,11 @@
     "@ayroblu/tracer-lib": "workspace:*",
     "jotai": "^2.9.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
+    "@types/d3-time-format": "^4.0.3",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/service-worker-mock": "^2.0.4",

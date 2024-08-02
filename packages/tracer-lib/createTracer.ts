@@ -23,6 +23,9 @@ export function createTracer(
     function counter(counter: string, count?: number): void {
       addTrace({ counter, count });
     }
+    function gauge(gauge: Gauge): void {
+      addTrace({ gauge });
+    }
     function log(message: string | StructLogMessage): void {
       addTrace({ message });
     }
@@ -35,6 +38,7 @@ export function createTracer(
     return {
       counter,
       log,
+      gauge,
       traceStart,
       traceEnd,
       spanId,
@@ -73,6 +77,7 @@ type NewSpanParams = {
 export type ScopedTracer = {
   counter: (counter: string, count?: number) => void;
   log: (message: string | StructLogMessage) => void;
+  gauge: (gauge: Gauge) => void;
   traceStart: (newSpanParams: NewSpanParams) => ScopedTracer;
   traceEnd: () => void;
   spanId: Id;
@@ -87,8 +92,11 @@ export type TimeData =
       readonly counter: string;
       readonly count?: number;
     };
+export type Gauge = { readonly [key: string]: number };
+export type GaugeData = { readonly gauge: { readonly [key: string]: number } };
 type TraceContent =
   | TimeData
+  | GaugeData
   | ({
       readonly trace: "start";
       readonly parentSpanId?: Id;

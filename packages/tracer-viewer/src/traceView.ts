@@ -1,4 +1,5 @@
-import type { Id, SpanMeta, TimeData, Trace } from "./createTracer.ts";
+import type { Gauge, Id, SpanMeta, TimeData, Trace } from "@ayroblu/tracer-lib";
+import { defaultObjectGet } from "./utils/index.ts";
 
 export function traceView(traces: Trace[]): TraceView {
   const spanMap = new Map<Id, Span>();
@@ -9,7 +10,12 @@ export function traceView(traces: Trace[]): TraceView {
     const span: Span =
       spanMap.get(trace.spanId) ??
       (() => {
-        const span = { id: trace.spanId, startTime: trace.ts, timeMeta: [] };
+        const span: Span = {
+          id: trace.spanId,
+          startTime: trace.ts,
+          timeMeta: [],
+          chartData: {},
+        };
         spanMap.set(trace.spanId, span);
         spans.push(span);
         return span;
@@ -37,6 +43,11 @@ export function traceView(traces: Trace[]): TraceView {
         counter: trace.counter,
         count: trace.count,
       });
+    } else if ("gauge" in trace) {
+      Object.entries(trace.gauge).forEach(([key, value]) => {
+        const list = defaultObjectGet(span.chartData, key, () => []);
+        list.push({ ts: trace.ts, value });
+      });
     } else {
       isNever(trace);
     }
@@ -46,20 +57,21 @@ export function traceView(traces: Trace[]): TraceView {
 
 function isNever(_value: never): void {}
 
-type TimeMeta = {
+export type TimeMeta = {
   ts: number;
 } & TimeData;
-type Span = {
+export type Span = {
   id: Id;
   parentSpanId?: Id;
   name?: string;
   meta?: SpanMeta;
   timeMeta: TimeMeta[];
+  chartData: { [key: string]: { ts: number; value: number }[] };
   startTime: number;
   endTime?: number;
   processId?: string;
 };
-type TraceView = {
+export type TraceView = {
   id: Id;
   spans: Span[];
 };

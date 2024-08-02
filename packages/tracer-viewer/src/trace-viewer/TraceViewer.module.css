@@ -1,6 +1,48 @@
+.container {
+  display: flex;
+}
 .span {
   height: 30px;
   border-radius: 10px;
   white-space: nowrap;
   border: 1px solid #888888;
+  contain: paint;
+  padding-inline: 0.5em;
+  cursor: pointer;
+}
+.spanList {
+  flex: 1 1 auto;
+}
+.noEndSpan {
+  border-start-end-radius: 0px;
+  border-end-end-radius: 0px;
+  border-inline-end: 0px solid black;
+}
+.details {
+  width: 30%;
+  padding-inline-start: 8px;
+  padding-inline-end: 8px;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+}
+.focusedTimeMeta {
+  padding: 8px;
+  border: 1px solid #888;
+  border-radius: 16px;
+}
+.timeMetaItem:not(:last-child) {
+  border-bottom: 1px solid #888;
+}
+.focused {
+  background-color: CanvasText;
+  color: Canvas;
+}
+.chart {
+  margin-block: 8px;
+  aspect-ratio: 4 / 3;
+}
+.title {
+  text-align: center;
 }

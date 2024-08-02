@@ -10,3 +10,32 @@ export function lazy<T>(f: () => T): () => T {
     return value;
   };
 }
+
+export function cn(
+  ...args: (string | "" | 0 | false | null | undefined)[]
+): string {
+  return args.filter((a) => a).join(" ");
+}
+
+export function withSign(num: number): string {
+  return num >= 0 ? `+${num}` : num.toString();
+}
+
+export function toPercent(v: number): string {
+  return (v * 100).toFixed(2) + "%";
+}
+
+export function defaultObjectGet<T extends object, K extends keyof T>(
+  o: T,
+  k: K,
+  def: () => T[K],
+): T[K] {
+  return (
+    o[k] ??
+    (() => {
+      const item = def();
+      o[k] = item;
+      return item;
+    })()
+  );
+}

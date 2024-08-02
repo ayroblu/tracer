@@ -23,6 +23,12 @@ export const getFixture = lazy(() => {
       traceId,
       counter: "run",
     });
+    traces.push({
+      ts,
+      spanId,
+      traceId,
+      gauge: { uptime: ts - startTime },
+    });
     traces.push(
       ...generateNestedTasks({
         parentSpanId: spanId,
@@ -51,7 +57,7 @@ type NestParams = {
 };
 function generateNestedTasks(params: NestParams): Trace[] {
   const { parentSpanId, traceId, ts, width, depth } = params;
-  if (depth > 10) {
+  if (depth > 3) {
     return [];
   }
   const spanId = crypto.randomUUID();
