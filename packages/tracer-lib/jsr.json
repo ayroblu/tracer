@@ -1,5 +1,5 @@
 {
   "name": "@ayroblu/tracer-lib",
-  "version": "1.0.1",
-  "exports": "./index.ts"
+  "version": "1.0.2",
+  "exports": "./src/index.ts"
 }
