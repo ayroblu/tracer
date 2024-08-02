@@ -1,12 +1,10 @@
-import type { Gauge, Id, SpanMeta, TimeData, Trace } from "@ayroblu/tracer-lib";
+import type { Id, SpanMeta, TimeData, Trace } from "@ayroblu/tracer-lib";
 import { defaultObjectGet } from "./utils/index.ts";
 
 export function traceView(traces: Trace[]): TraceView {
   const spanMap = new Map<Id, Span>();
   const spans: Span[] = [];
-  let id = "";
   for (const trace of traces) {
-    id = trace.traceId;
     const span: Span =
       spanMap.get(trace.spanId) ??
       (() => {
@@ -52,7 +50,7 @@ export function traceView(traces: Trace[]): TraceView {
       isNever(trace);
     }
   }
-  return { id, spans };
+  return { spans };
 }
 
 function isNever(_value: never): void {}
@@ -72,6 +70,5 @@ export type Span = {
   processId?: string;
 };
 export type TraceView = {
-  id: Id;
   spans: Span[];
 };

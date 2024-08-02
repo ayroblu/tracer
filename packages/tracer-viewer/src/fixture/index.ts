@@ -6,11 +6,9 @@ export const getFixture = lazy(() => {
   const startTime = Date.now();
   const endTime = startTime + 5000;
   const spanId = crypto.randomUUID();
-  const traceId = crypto.randomUUID();
   traces.push({
     ts: startTime,
     spanId,
-    traceId,
     trace: "start",
     name: "Example trace",
     processId: "browser",
@@ -20,20 +18,17 @@ export const getFixture = lazy(() => {
     traces.push({
       ts,
       spanId,
-      traceId,
       counter: "run",
     });
     traces.push({
       ts,
       spanId,
-      traceId,
       gauge: { uptime: ts - startTime },
     });
     traces.push(
       ...generateNestedTasks({
         parentSpanId: spanId,
         ts: ts + Math.round(topInc / 10),
-        traceId,
         width: Math.round((topInc * 8) / 10),
         depth: 0,
       }),
@@ -42,7 +37,6 @@ export const getFixture = lazy(() => {
   traces.push({
     ts: endTime,
     spanId,
-    traceId,
     trace: "end",
   });
   return traces;
@@ -51,12 +45,11 @@ export const getFixture = lazy(() => {
 type NestParams = {
   parentSpanId: Id;
   ts: number;
-  traceId: Id;
   width: number;
   depth: number;
 };
 function generateNestedTasks(params: NestParams): Trace[] {
-  const { parentSpanId, traceId, ts, width, depth } = params;
+  const { parentSpanId, ts, width, depth } = params;
   if (depth > 3) {
     return [];
   }
@@ -64,7 +57,6 @@ function generateNestedTasks(params: NestParams): Trace[] {
   return [
     {
       ts,
-      traceId,
       trace: "start",
       processId: "browser",
       spanId,
@@ -74,7 +66,6 @@ function generateNestedTasks(params: NestParams): Trace[] {
     {
       ts: ts + 1,
       spanId,
-      traceId,
       counter: "child-run",
     },
     ...generateNestedTasks({
@@ -85,7 +76,6 @@ function generateNestedTasks(params: NestParams): Trace[] {
     }),
     {
       ts: ts + width,
-      traceId,
       trace: "end",
       spanId,
     },

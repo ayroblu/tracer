@@ -2,7 +2,6 @@ export function createTracer(
   newSpanParams: NewSpanParams,
   onTrace?: (trace: Trace) => void,
 ): Tracer {
-  const traceId = generateRandomId();
   const traces: Trace[] = [];
 
   function scopedTracer(newSpanParams: NewSpanParams): ScopedTracer {
@@ -16,7 +15,7 @@ export function createTracer(
     });
 
     function addTrace(content: TraceContent): void {
-      const trace: Trace = { ...content, ts: Date.now(), traceId, spanId };
+      const trace: Trace = { ...content, ts: Date.now(), spanId };
       traces.push(trace);
       onTrace?.(trace);
     }
@@ -108,6 +107,5 @@ type TraceContent =
 export type Id = string;
 export type Trace = {
   readonly ts: number;
-  readonly traceId: Id;
   readonly spanId: Id;
 } & TraceContent;
