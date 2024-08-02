@@ -1,6 +1,7 @@
 {
   "name": "@ayroblu/tracer-lib",
   "version": "1.0.2",
+  "license": "MIT",
   "main": "src/index.ts",
   "module": "src/index.ts",
   "type": "module",
@@ -8,5 +9,8 @@
     "@types/bun": "latest",
     "prettier": "^3.3.2",
     "typescript": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
