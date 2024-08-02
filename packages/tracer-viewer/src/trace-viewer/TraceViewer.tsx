@@ -7,14 +7,11 @@ import { atom, useAtomValue } from "jotai";
 import { atomFamily } from "jotai/utils";
 import { useSetAtom } from "jotai";
 import {
-  CartesianGrid,
   ComposedChart,
   Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  XAxisProps,
   YAxis,
 } from "recharts";
 import { getXAxisArgs } from "./chart-utils.ts";

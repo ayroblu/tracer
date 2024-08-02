@@ -1,4 +1,4 @@
-import { XAxisProps } from "recharts";
+import type { XAxisProps } from "recharts";
 import { scaleTime } from "d3-scale";
 import { timeFormat } from "d3-time-format";
 import {
