@@ -39,3 +39,17 @@ export function defaultObjectGet<T extends object, K extends keyof T>(
     })()
   );
 }
+
+export function collect<T, R>(
+  list: ReadonlyArray<T>,
+  f: (v: T) => R | null | undefined,
+): R[] {
+  const results: R[] = [];
+  for (const item of list) {
+    const result = f(item);
+    if (result !== undefined && result !== null) {
+      results.push(result);
+    }
+  }
+  return results;
+}

@@ -1,6 +1,7 @@
 import { useSetAtom } from "jotai";
 import * as React from "react";
 import { fileAtom } from "./source-trace.ts";
+import { collect } from "../utils/index.ts";
 
 export const FileInput = React.memo(() => {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -12,7 +13,14 @@ export const FileInput = React.memo(() => {
     if (file) {
       setIsLoading(true);
       const fileContents = await readFilePromise(file);
-      const traces = fileContents.split("\n").map((line) => JSON.parse(line));
+      const traces = collect(fileContents.split("\n"), (line) => {
+        try {
+          return JSON.parse(line);
+        } catch {
+          console.error("Failed to parse line", line);
+          return;
+        }
+      });
       setFile(traces);
       setIsLoading(false);
     }
