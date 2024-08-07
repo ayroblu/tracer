@@ -15,6 +15,7 @@ import {
   YAxis,
 } from "recharts";
 import { getXAxisArgs } from "./chart-utils.ts";
+import { fileAtom } from "./source-trace.ts";
 
 export function TraceViewer() {
   return (
@@ -181,7 +182,9 @@ function getContentStyle() {
     : lightContentStyle;
 }
 
-const tracesAtom = atom(() => {
+const tracesAtom = atom((get) => {
+  const traces = get(fileAtom);
+  if (traces) return traces;
   return getFixture();
 });
 const spansAtom = atom((get) => {

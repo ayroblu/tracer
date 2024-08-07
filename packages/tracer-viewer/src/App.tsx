@@ -1,12 +1,12 @@
 import styles from "./App.module.css";
+import { FileInput } from "./trace-viewer/FileInput.tsx";
 import { TraceViewer } from "./trace-viewer/TraceViewer.tsx";
 
 function App() {
   return (
     <>
       <p className={styles.center}>
-        Basically view traces, upload button (+download), demo trace, and demo
-        big trace
+        Trace Viewer <FileInput />
       </p>
       <TraceViewer />
     </>
